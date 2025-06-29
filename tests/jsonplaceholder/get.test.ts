@@ -1,5 +1,5 @@
 import { JsonPlaceholderClient } from "../../src/api/JsonPlaceholderClient";
-import { GetRequest } from "../../src/api/httpRequests";
+import { RequestHandler } from "../../src/api/httpRequests";
 
 describe("JSONPlaceholder GET Edge Cases", () => {
   const client = new JsonPlaceholderClient();
@@ -15,7 +15,7 @@ describe("JSONPlaceholder GET Edge Cases", () => {
         userId: expect.any(Number)
       })
     };
-    await new GetRequest(scenario, "/posts/1").execute();
+    await RequestHandler.executeGet(scenario, "/posts/1");
   });
 
   test("get non-existing post by id=9999", async () => {
@@ -24,7 +24,7 @@ describe("JSONPlaceholder GET Edge Cases", () => {
       expectedStatus: 404,
       expectedResponse: {}
     };
-    await new GetRequest(scenario, "/posts/9999").execute();
+    await RequestHandler.executeGet(scenario, "/posts/9999");
   });
 
   test("get comments for post id=1", async () => {
@@ -33,7 +33,7 @@ describe("JSONPlaceholder GET Edge Cases", () => {
       expectedStatus: 200,
       expectedResponse: expect.any(Array)
     };
-    await new GetRequest(scenario, "/posts/1/comments").execute();
+    await RequestHandler.executeGet(scenario, "/posts/1/comments");
   });
 
   test("get comments for non-existing post id=9999", async () => {
@@ -42,6 +42,6 @@ describe("JSONPlaceholder GET Edge Cases", () => {
       expectedStatus: 200,
       expectedResponse: []
     };
-    await new GetRequest(scenario, "/posts/9999/comments").execute();
+    await RequestHandler.executeGet(scenario, "/posts/9999/comments");
   });
 });

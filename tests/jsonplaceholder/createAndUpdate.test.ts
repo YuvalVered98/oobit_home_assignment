@@ -1,5 +1,5 @@
 import { JsonPlaceholderClient } from "../../src/api/JsonPlaceholderClient";
-import { PostRequest, PutRequest } from "../../src/api/httpRequests";
+import { RequestHandler } from "../../src/api/httpRequests";
 
 describe("JSONPlaceholder POST & PUT Edge Cases", () => {
   const client = new JsonPlaceholderClient();
@@ -13,7 +13,7 @@ describe("JSONPlaceholder POST & PUT Edge Cases", () => {
         id: expect.any(Number)
       })
     };
-    await new PostRequest(scenario, "/posts").execute();
+    await RequestHandler.executePost(scenario, "/posts");
   });
 
   test("create post with empty body", async () => {
@@ -25,7 +25,7 @@ describe("JSONPlaceholder POST & PUT Edge Cases", () => {
         id: expect.any(Number)
       })
     };
-    await new PostRequest(scenario, "/posts").execute();
+    await RequestHandler.executePost(scenario, "/posts");
   });
 
   test("update existing post with valid data", async () => {
@@ -37,7 +37,7 @@ describe("JSONPlaceholder POST & PUT Edge Cases", () => {
         id: 1
       })
     };
-    await new PutRequest(scenario, "/posts/1").execute();
+    await RequestHandler.executePut(scenario, "/posts/1");
   });
 
   test("update non-existing post", async () => {
@@ -47,7 +47,7 @@ describe("JSONPlaceholder POST & PUT Edge Cases", () => {
     expectedStatus: 500,
     expectedResponse: expect.any(Object)
   };
-  await new PutRequest(scenario, "/posts/9999").execute();
+  await RequestHandler.executePut(scenario, "/posts/9999");
 });
 
 });

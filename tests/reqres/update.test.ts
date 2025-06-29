@@ -1,5 +1,5 @@
 import { ReqResClient } from "../../src/api/ReqResClient";
-import { PutRequest } from "../../src/api/httpRequests";
+import { RequestHandler } from "../../src/api/httpRequests";
 
 describe("Update User Edge Cases", () => {
   const reqResClient = new ReqResClient();
@@ -15,7 +15,7 @@ describe("Update User Edge Cases", () => {
         updatedAt: expect.any(String)
       }
     };
-    await new PutRequest(scenario, "/users/2").execute();
+    await RequestHandler.executePut(scenario, "/users/2");
   });
 
   test("update user with empty data", async () => {
@@ -27,7 +27,7 @@ describe("Update User Edge Cases", () => {
         updatedAt: expect.any(String)
       }
     };
-    await new PutRequest(scenario, "/users/2").execute();
+    await RequestHandler.executePut(scenario, "/users/2");
   });
 
   test("update user with very long name and job", async () => {
@@ -43,7 +43,7 @@ describe("Update User Edge Cases", () => {
         updatedAt: expect.any(String)
       }
     };
-    await new PutRequest(scenario, "/users/2").execute();
+    await RequestHandler.executePut(scenario, "/users/2");
   });
 
   test("update non-existing user by id=9999", async () => {
@@ -57,7 +57,7 @@ describe("Update User Edge Cases", () => {
         updatedAt: expect.any(String)
       }
     };
-    await new PutRequest(scenario, "/users/9999").execute();
+    await RequestHandler.executePut(scenario, "/users/9999");
   });
 
   test("update user with id=0 (edge case low)", async () => {
@@ -71,7 +71,7 @@ describe("Update User Edge Cases", () => {
         updatedAt: expect.any(String)
       }
     };
-    await new PutRequest(scenario, "/users/0").execute();
+    await RequestHandler.executePut(scenario, "/users/0");
   });
 
   test("update user with negative id (-1)", async () => {
@@ -85,6 +85,6 @@ describe("Update User Edge Cases", () => {
         updatedAt: expect.any(String)
       }
     };
-    await new PutRequest(scenario, "/users/-1").execute();
+    await RequestHandler.executePut(scenario, "/users/-1");
   });
 });

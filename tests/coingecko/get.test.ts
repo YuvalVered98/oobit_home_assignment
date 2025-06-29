@@ -1,5 +1,5 @@
 import { CoinGeckoClient } from "../../src/api/CoinGeckoClient";
-import { GetRequest } from "../../src/api/httpRequests";
+import { RequestHandler } from "../../src/api/httpRequests";
 
 describe("CoinGecko GET Edge Cases", () => {
   const client = new CoinGeckoClient();
@@ -14,7 +14,7 @@ describe("CoinGecko GET Edge Cases", () => {
         market_data: expect.any(Object)
       })
     };
-    await new GetRequest(scenario, "/coins/bitcoin").execute();
+    await RequestHandler.executeGet(scenario, "/coins/bitcoin");
   });
 
   test("get details for non-existing coin", async () => {
@@ -23,7 +23,7 @@ describe("CoinGecko GET Edge Cases", () => {
       expectedStatus: 404,
       expectedResponse: expect.any(Object)
     };
-    await new GetRequest(scenario, "/coins/fakecoin123").execute();
+    await RequestHandler.executeGet(scenario, "/coins/fakecoin123");
   });
 
   test("get trending coins", async () => {
@@ -34,7 +34,7 @@ describe("CoinGecko GET Edge Cases", () => {
         coins: expect.any(Array)
       })
     };
-    await new GetRequest(scenario, "/search/trending").execute();
+    await RequestHandler.executeGet(scenario, "/search/trending");
   });
 
   test("get market chart for bitcoin", async () => {
@@ -45,7 +45,7 @@ describe("CoinGecko GET Edge Cases", () => {
         prices: expect.any(Array)
       })
     };
-    await new GetRequest(scenario, "/coins/bitcoin/market_chart?vs_currency=usd&days=7").execute();
+    await RequestHandler.executeGet(scenario, "/coins/bitcoin/market_chart?vs_currency=usd&days=7");
   });
 
   test("get market chart for non-existing coin", async () => {
@@ -54,7 +54,7 @@ describe("CoinGecko GET Edge Cases", () => {
     expectedStatus: 404,
     expectedResponse: expect.any(Object)
   };
-  await new GetRequest(scenario, "/coins/fakecoin123/market_chart?vs_currency=usd&days=7").execute();
+  await RequestHandler.executeGet(scenario, "/coins/fakecoin123/market_chart?vs_currency=usd&days=7");
 });
 
   test("get current price of bitcoin in usd", async () => {
@@ -67,7 +67,7 @@ describe("CoinGecko GET Edge Cases", () => {
         })
       })
     };
-    await new GetRequest(scenario, "/simple/price?ids=bitcoin&vs_currencies=usd").execute();
+    await RequestHandler.executeGet(scenario, "/simple/price?ids=bitcoin&vs_currencies=usd");
   });
 
   test("get current price for non-existing coin", async () => {
@@ -78,7 +78,7 @@ describe("CoinGecko GET Edge Cases", () => {
         fakecoin: expect.anything()
       })
     };
-    await new GetRequest(scenario, "/simple/price?ids=fakecoin&vs_currencies=usd").execute();
+    await RequestHandler.executeGet(scenario, "/simple/price?ids=fakecoin123&vs_currencies=usd");
   });
 
   test("get current price of bitcoin in non-existing currency", async () => {
@@ -89,7 +89,7 @@ describe("CoinGecko GET Edge Cases", () => {
         bitcoin: {}
       })
     };
-    await new GetRequest(scenario, "/simple/price?ids=bitcoin&vs_currencies=moon").execute();
+    await RequestHandler.executeGet(scenario, "/simple/price?ids=bitcoin&vs_currencies=moon");
   });
 
   test("get market chart with negative days", async () => {
@@ -98,7 +98,7 @@ describe("CoinGecko GET Edge Cases", () => {
       expectedStatus: 400,
       expectedResponse: expect.any(Object)
     };
-    await new GetRequest(scenario, "/coins/bitcoin/market_chart?vs_currency=usd&days=-5").execute();
+    await RequestHandler.executeGet(scenario, "/coins/bitcoin/market_chart?vs_currency=usd&days=-5");
   });
 
   test("get market chart with zero days", async () => {
@@ -107,7 +107,7 @@ describe("CoinGecko GET Edge Cases", () => {
       expectedStatus: 400,
       expectedResponse: expect.any(Object)
     };
-    await new GetRequest(scenario, "/coins/bitcoin/market_chart?vs_currency=usd&days=0").execute();
+    await RequestHandler.executeGet(scenario, "/coins/bitcoin/market_chart?vs_currency=usd&days=0");
   });
 });
 

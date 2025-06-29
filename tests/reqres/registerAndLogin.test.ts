@@ -1,5 +1,5 @@
 import { ReqResClient } from "../../src/api/ReqResClient";
-import { PostRequest } from "../../src/api/httpRequests";
+import { RequestHandler } from "../../src/api/httpRequests";
 
 describe("Register and Login Edge Cases", () => {
   const reqResClient = new ReqResClient();
@@ -11,7 +11,7 @@ describe("Register and Login Edge Cases", () => {
       expectedStatus: 200,
       expectedResponse: { id: expect.any(Number), token: expect.any(String) }
     };
-    await new PostRequest(scenario, "/register").execute();
+    await RequestHandler.executePost(scenario, "/register");
   });
 
   test("registration with invalid email", async () => {
@@ -21,7 +21,7 @@ describe("Register and Login Edge Cases", () => {
       expectedStatus: 400,
       expectedResponse: { error: expect.any(String) }
     };
-    await new PostRequest(scenario, "/register").execute();
+    await RequestHandler.executePost(scenario, "/register");
   });
 
   test("registration missing password", async () => {
@@ -31,7 +31,7 @@ describe("Register and Login Edge Cases", () => {
       expectedStatus: 400,
       expectedResponse: { error: expect.any(String) }
     };
-    await new PostRequest(scenario, "/register").execute();
+    await RequestHandler.executePost(scenario, "/register");
   });
 
   test("registration missing all fields", async () => {
@@ -41,7 +41,7 @@ describe("Register and Login Edge Cases", () => {
       expectedStatus: 400,
       expectedResponse: { error: expect.any(String) }
     };
-    await new PostRequest(scenario, "/register").execute();
+    await RequestHandler.executePost(scenario, "/register");
   });
 
   test("registration with special chars password", async () => {
@@ -51,7 +51,7 @@ describe("Register and Login Edge Cases", () => {
       expectedStatus: 200,
       expectedResponse: { id: expect.any(Number), token: expect.any(String) }
     };
-    await new PostRequest(scenario, "/register").execute();
+    await RequestHandler.executePost(scenario, "/register");
   });
 
   test("login with valid credentials", async () => {
@@ -61,7 +61,7 @@ describe("Register and Login Edge Cases", () => {
       expectedStatus: 200,
       expectedResponse: { token: expect.any(String) }
     };
-    await new PostRequest(scenario, "/login").execute();
+    await RequestHandler.executePost(scenario, "/login");
   });
 
   test("login with wrong password", async () => {
@@ -71,7 +71,7 @@ describe("Register and Login Edge Cases", () => {
       expectedStatus: 200,
       expectedResponse: { token: expect.any(String) }
     };
-    await new PostRequest(scenario, "/login").execute();
+    await RequestHandler.executePost(scenario, "/login");
   });
 
   test("login with non-existing user", async () => {
@@ -81,7 +81,7 @@ describe("Register and Login Edge Cases", () => {
       expectedStatus: 400,
       expectedResponse: { error: expect.any(String) }
     };
-    await new PostRequest(scenario, "/login").execute();
+    await RequestHandler.executePost(scenario, "/login");
   });
 
   test("login missing password", async () => {
@@ -91,7 +91,7 @@ describe("Register and Login Edge Cases", () => {
       expectedStatus: 400,
       expectedResponse: { error: expect.any(String) }
     };
-    await new PostRequest(scenario, "/login").execute();
+    await RequestHandler.executePost(scenario, "/login");
   });
 
   test("login with special chars password", async () => {
@@ -101,6 +101,6 @@ describe("Register and Login Edge Cases", () => {
       expectedStatus: 200,
       expectedResponse: { token: expect.any(String) }
     };
-    await new PostRequest(scenario, "/login").execute();
+    await RequestHandler.executePost(scenario, "/login");
   });
 });

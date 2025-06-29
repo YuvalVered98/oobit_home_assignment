@@ -1,5 +1,5 @@
 import { ReqResClient } from "../../src/api/ReqResClient";
-import { GetRequest } from "../../src/api/httpRequests";
+import { RequestHandler } from "../../src/api/httpRequests";
 
 describe("Get User Edge Cases", () => {
   const reqResClient = new ReqResClient();
@@ -18,7 +18,7 @@ describe("Get User Edge Cases", () => {
         }
       }
     };
-    await new GetRequest(scenario, "/users/2").execute();
+    await RequestHandler.executeGet(scenario, "/users/2");
   });
 
   test("get non-existing user by id=9999", async () => {
@@ -27,7 +27,7 @@ describe("Get User Edge Cases", () => {
       expectedStatus: 404,
       expectedResponse: {}
     };
-    await new GetRequest(scenario, "/users/9999").execute();
+    await RequestHandler.executeGet(scenario, "/users/9999");
   });
 
   test("get user by id=0 (edge case low)", async () => {
@@ -36,7 +36,7 @@ describe("Get User Edge Cases", () => {
       expectedStatus: 404,
       expectedResponse: {}
     };
-    await new GetRequest(scenario, "/users/0").execute();
+    await RequestHandler.executeGet(scenario, "/users/0");
   });
 
   test("get user by id=-1 (negative id)", async () => {
@@ -45,7 +45,7 @@ describe("Get User Edge Cases", () => {
       expectedStatus: 404,
       expectedResponse: {}
     };
-    await new GetRequest(scenario, "/users/-1").execute();
+    await RequestHandler.executeGet(scenario, "/users/-1");
   });
 
   test("get user by very high id (9999999)", async () => {
@@ -54,6 +54,6 @@ describe("Get User Edge Cases", () => {
       expectedStatus: 404,
       expectedResponse: {}
     };
-    await new GetRequest(scenario, "/users/9999999").execute();
+    await RequestHandler.executeGet(scenario, "/users/9999999");
   });
 });

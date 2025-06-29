@@ -1,6 +1,6 @@
 import { CoinGeckoClient } from "../../src/api/CoinGeckoClient";
 import { FlowLogger } from "../../src/api/FlowLogger";
-import { GetRequest } from "../../src/api/httpRequests";
+import { RequestHandler } from "../../src/api/httpRequests";
 
 describe("Advanced CoinGecko Market Research Flow Edge Cases", () => {
   const client = new CoinGeckoClient();
@@ -17,7 +17,8 @@ describe("Advanced CoinGecko Market Research Flow Edge Cases", () => {
     const details = await client.getCoinDetails(firstCoinId);
     expect(details.id).toBe(firstCoinId);
 
-    FlowLogger.log("/coins/" + firstCoinId, 200, details.market_data.current_price);
+    FlowLogger.log("/coins/" + firstCoinId, 200, details.market_data.current_price.usd);
+
   });
 
   test("fetch current prices for multiple coins & currencies", async () => {
@@ -35,7 +36,7 @@ describe("Advanced CoinGecko Market Research Flow Edge Cases", () => {
         })
       })
     };
-    await new GetRequest(scenario, "/simple/price?ids=bitcoin,ethereum&vs_currencies=usd,eur").execute();
+    await RequestHandler.executeGet(scenario, "/simple/price?ids=bitcoin,ethereum&vs_currencies=usd,eur");
   });
 
   test("get market chart with long timespan", async () => {
@@ -46,6 +47,6 @@ describe("Advanced CoinGecko Market Research Flow Edge Cases", () => {
         prices: expect.any(Array)
       })
     };
-    await new GetRequest(scenario, "/coins/bitcoin/market_chart?vs_currency=usd&days=365").execute();
+    await RequestHandler.executeGet(scenario, "/coins/bitcoin/market_chart?vs_currency=usd&days=365");
   });
 });

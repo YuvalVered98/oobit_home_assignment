@@ -1,5 +1,5 @@
 import { JsonPlaceholderClient } from "../../src/api/JsonPlaceholderClient";
-import { DeleteRequest } from "../../src/api/httpRequests";
+import { RequestHandler } from "../../src/api/httpRequests";
 
 describe("JSONPlaceholder DELETE Edge Cases", () => {
   const client = new JsonPlaceholderClient();
@@ -10,7 +10,7 @@ describe("JSONPlaceholder DELETE Edge Cases", () => {
       expectedStatus: 200,
       expectedResponse: {}
     };
-    await new DeleteRequest(scenario, "/posts/1").execute();
+    await RequestHandler.executeDelete(scenario, "/posts/1");
   });
 
   test("delete non-existing post id=9999", async () => {
@@ -19,6 +19,6 @@ describe("JSONPlaceholder DELETE Edge Cases", () => {
       expectedStatus: 200,
       expectedResponse: {}
     };
-    await new DeleteRequest(scenario, "/posts/9999").execute();
+    await RequestHandler.executeDelete(scenario, "/posts/9999");
   });
 });

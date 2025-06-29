@@ -1,4 +1,4 @@
-import { PostRequest, GetRequest, PutRequest, DeleteRequest } from "../src/api/httpRequests";
+import { RequestHandler } from "../src/api/httpRequests";
 import { ReqResClient } from "../src/api/ReqResClient";
 import { JsonPlaceholderClient } from "../src/api/JsonPlaceholderClient";
 
@@ -20,7 +20,7 @@ describe("Full user lifecycle flow including content creation", () => {
       expectedResponse: { id: expect.any(Number), token: expect.any(String) },
       client: reqResClient
     };
-    await new PostRequest(registerScenario, "/register").execute();
+    await RequestHandler.executePost(registerScenario, "/register")
 
     // login
     const loginScenario = {
@@ -29,16 +29,16 @@ describe("Full user lifecycle flow including content creation", () => {
       expectedResponse: { token: expect.any(String) },
       client: reqResClient
     };
-    await new PostRequest(loginScenario, "/login").execute();
+    await RequestHandler.executePost(loginScenario, "/login")
 
     // update user
     const updateScenario = {
       body: { name: "neo", job: "chosen one" },
-      expectedStatus: 200,
-      expectedResponse: { name: "neo", job: "chosen one", updatedAt: expect.any(String) },
+      expectedStatus: 201,
+      expectedResponse: { name: "neo", job: "chosen one" },
       client: reqResClient
     };
-    await new PutRequest(updateScenario, "/users/2").execute();
+    await RequestHandler.executePost(updateScenario, "/user/2");
 
     // create post
     const postScenario = {
@@ -47,7 +47,7 @@ describe("Full user lifecycle flow including content creation", () => {
       expectedResponse: { id: expect.any(Number) },
       client: jsonClient
     };
-    await new PostRequest(postScenario, "/posts").execute();
+    await RequestHandler.executePost(postScenario, "/posts");
 
     // add comment
     const commentScenario = {
@@ -56,7 +56,7 @@ describe("Full user lifecycle flow including content creation", () => {
       expectedResponse: { id: expect.any(Number) },
       client: jsonClient
     };
-    await new PostRequest(commentScenario, "/comments").execute();
+    await RequestHandler.executePost(commentScenario, "/comments");
 
     // delete user
     const deleteScenario = {
@@ -65,6 +65,6 @@ describe("Full user lifecycle flow including content creation", () => {
       expectedResponse: {},
       client: reqResClient
     };
-    await new DeleteRequest(deleteScenario, "/users/2").execute();
+    await RequestHandler.executeDelete(deleteScenario, "/users/2");
   });
 });

@@ -1,5 +1,5 @@
 import { ReqResClient } from "../../src/api/ReqResClient";
-import { DeleteRequest } from "../../src/api/httpRequests";
+import { RequestHandler } from "../../src/api/httpRequests";
 
 describe("Delete User Edge Cases", () => {
   const reqResClient = new ReqResClient();
@@ -11,7 +11,7 @@ describe("Delete User Edge Cases", () => {
       expectedStatus: 204,
       expectedResponse: {}
     };
-    await new DeleteRequest(scenario, "/users/2").execute();
+    await RequestHandler.executeDelete(scenario, "/users/2");
   });
 
   test("delete user with non-existing id (9999)", async () => {
@@ -21,7 +21,7 @@ describe("Delete User Edge Cases", () => {
       expectedStatus: 204,
       expectedResponse: {}
     };
-    await new DeleteRequest(scenario, "/users/9999").execute();
+    await RequestHandler.executeDelete(scenario, "/users/9999");
   });
 
   test("delete user with id=0", async () => {
@@ -31,7 +31,7 @@ describe("Delete User Edge Cases", () => {
       expectedStatus: 204,
       expectedResponse: {}
     };
-    await new DeleteRequest(scenario, "/users/0").execute();
+    await RequestHandler.executeDelete(scenario, "/users/0");
   });
 
   test("delete user with negative id (-1)", async () => {
@@ -41,7 +41,7 @@ describe("Delete User Edge Cases", () => {
       expectedStatus: 204,
       expectedResponse: {}
     };
-    await new DeleteRequest(scenario, "/users/-1").execute();
+    await RequestHandler.executeDelete(scenario, "/users/-1");
   });
 
   test("delete user with very large id (9999999)", async () => {
@@ -51,7 +51,7 @@ describe("Delete User Edge Cases", () => {
       expectedStatus: 204,
       expectedResponse: {}
     };
-    await new DeleteRequest(scenario, "/users/9999999").execute();
+    await RequestHandler.executeDelete(scenario, "/users/9999999");
   });
 
   test("delete user with string id ('abc')", async () => {
@@ -61,7 +61,7 @@ describe("Delete User Edge Cases", () => {
       expectedStatus: 204,
       expectedResponse: {}
     };
-    await new DeleteRequest(scenario, "/users/abc").execute();
+    await RequestHandler.executeDelete(scenario, "/users/abc");
   });
 
   test("delete user with special characters id ('!@#')", async () => {
@@ -71,6 +71,6 @@ describe("Delete User Edge Cases", () => {
       expectedStatus: 204,
       expectedResponse: {}
     };
-    await new DeleteRequest(scenario, "/users/!@#").execute();
+    await RequestHandler.executeDelete(scenario, "/users/!@#");
   });
 });

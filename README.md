@@ -1,6 +1,11 @@
-<<<<<<< HEAD
-
 # Oobit QA Home Assignment - Modular API Automation Framework
+
+## How to run
+1. Configure environment, if on windows:
+  - Install choco/brew for windows/macos package manager
+  - Install nodejs `choco install -y --force nodejs-lts`
+2. Run tests: `npx jest`
+
 
 ## Overview
 
@@ -60,8 +65,15 @@ Encapsulates API-specific logic (baseUrl, headers).
 - `CoinGeckoClient.ts`
 - `BaseApiClient.ts`
 
-### 🔹 Layer 2 - Generic HTTP Request Classes
-Reusable `PostRequest`, `GetRequest`, `PutRequest`, `DeleteRequest`, `PerformanceRequest` 
+### 🔹 Layer 2 - Generic HTTP Request Class
+Reusable `RequestHandler`
+- `executePost`
+- `executeGet`
+- `executeDelete`
+- `executeUpdate`
+- `executePerformance`
+can perform the following functions.
+
 that take a scenario object + endpoint, and call the API client.
 
 ### 🔹 Layer 3 - Scenario-Driven Tests
@@ -77,30 +89,29 @@ await new PostRequest(scenario, "/register").execute();
 
 ---
 
-## 🧪 What we cover (according to the assignment)
+## What we cover (according to the assignment)
 
-✅ **Multiple APIs:** supports `https://reqres.in` and `https://jsonplaceholder.typicode.com`
+**Multiple APIs:** supports `https://reqres.in` and `https://jsonplaceholder.typicode.com`
 
-✅ **Full user lifecycle:** register, login, update, delete, get
+**Full user lifecycle:** register, login, update, delete, get
 
-✅ **Edge cases:** missing password, invalid email, huge user ids, special chars
+**Edge cases:** missing password, invalid email, huge user ids, special chars
 
-✅ **Performance tests:** ensure endpoints respond under thresholds
+**Performance tests:** ensure endpoints respond under thresholds
 
-✅ **Scenario-driven:** add new flows by adding scenario objects
+**Scenario-driven:** add new flows by adding scenario objects
 
-✅ **Reporting:** afterAll() prints a full summary of flows, status codes and durations
+**Reporting:** afterAll() prints a full summary of flows, status codes and durations
 
 ---
 
-## ✍️ How to extend
+## How to extend
 - To add more APIs: just create a new `XXXClient.ts`.
 - To add new flows: write a new `.test.ts` file with your scenarios.
 - The framework will handle the rest.
 
 ---
 
-## 🏆 Author
+## Author
 Yuval Vered
 =======
->>>>>>> 643562933ae2293d470efd8e4989290100368b74
