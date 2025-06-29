@@ -2,31 +2,31 @@
   {
     "endpoint": "/register",
     "status": 200,
-    "duration": 157.4953000000005
+    "duration": 212.89580000000024
   },
   {
     "endpoint": "/login",
     "status": 200,
-    "duration": 150.69850000000042
+    "duration": 189.1262999999999
   },
   {
     "endpoint": "/users/2",
     "status": 200,
-    "duration": 165.509399999999
+    "duration": 172.41409999999996
   },
   {
     "endpoint": "/posts",
     "status": 201,
-    "duration": 447.7047999999995
+    "duration": 543.4472000000005
   },
   {
     "endpoint": "/comments",
     "status": 201,
-    "duration": 167.95380000000114
+    "duration": 167.35099999999875
   },
   {
     "endpoint": "/users/2",
-    "status": 204,
-    "duration": 156.4436999999998
+    "status": 429,
+    "duration": 163.32719999999972
   }
 ]

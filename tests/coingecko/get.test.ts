@@ -73,7 +73,7 @@ describe("CoinGecko GET Edge Cases", () => {
   test("get current price for non-existing coin", async () => {
     const scenario = {
       client,
-      expectedStatus: 200,  // CoinGecko עדיין מחזיר 200 אבל בלי key
+      expectedStatus: 200,
       expectedResponse: expect.not.objectContaining({
         fakecoin: expect.anything()
       })
@@ -84,7 +84,7 @@ describe("CoinGecko GET Edge Cases", () => {
   test("get current price of bitcoin in non-existing currency", async () => {
     const scenario = {
       client,
-      expectedStatus: 200,  // CoinGecko עדיין מחזיר 200 אבל בלי key
+      expectedStatus: 200,
       expectedResponse: expect.objectContaining({
         bitcoin: {}
       })

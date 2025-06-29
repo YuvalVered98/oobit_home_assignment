@@ -4,7 +4,6 @@ import { PostRequest, PutRequest } from "../../src/api/httpRequests";
 describe("JSONPlaceholder POST & PUT Edge Cases", () => {
   const client = new JsonPlaceholderClient();
 
-  // POST
   test("create post with valid body", async () => {
     const scenario = {
       client,
@@ -29,14 +28,13 @@ describe("JSONPlaceholder POST & PUT Edge Cases", () => {
     await new PostRequest(scenario, "/posts").execute();
   });
 
-  // PUT
   test("update existing post with valid data", async () => {
     const scenario = {
       client,
       payload: { title: "updated", body: "updated body", userId: 1 },
       expectedStatus: 200,
       expectedResponse: expect.objectContaining({
-        id: 1 // JSONPlaceholder לרוב מחזיר רק את ה-id
+        id: 1
       })
     };
     await new PutRequest(scenario, "/posts/1").execute();
@@ -46,8 +44,8 @@ describe("JSONPlaceholder POST & PUT Edge Cases", () => {
   const scenario = {
     client,
     payload: { title: "updated", body: "updated body", userId: 1 },
-    expectedStatus: 500, // קיבלנו 500 בפועל, אז זה מה שנצפה
-    expectedResponse: expect.any(Object) // לא משנה לנו התוכן כי זה ריק
+    expectedStatus: 500,
+    expectedResponse: expect.any(Object)
   };
   await new PutRequest(scenario, "/posts/9999").execute();
 });
